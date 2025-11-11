@@ -45,6 +45,12 @@ public class GroupChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_chat);
 
+        // Get group name from intent with null check
+        if (getIntent().getExtras() == null || getIntent().getExtras().get("groupName") == null) {
+            Toast.makeText(this, "Error: No group data provided", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         currentGroupName = getIntent().getExtras().get("groupName").toString();
 
         mAuth = FirebaseAuth.getInstance();
@@ -55,11 +61,14 @@ public class GroupChatActivity extends AppCompatActivity {
         }
         currentUserID = mAuth.getCurrentUser().getUid();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-        GroupNameRef = FirebaseDatabase.getInstance().getReference().child("Groups").child(currentUserName);
+
+        // Initialize GetUserInfo first to set currentUserName before using it
+        GetUserInfo();
+
+        // Now use currentGroupName (not currentUserName) for the group reference
+        GroupNameRef = FirebaseDatabase.getInstance().getReference().child("Groups").child(currentGroupName);
 
         InitializeFields();
-
-        GetUserInfo();
 
         SendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
