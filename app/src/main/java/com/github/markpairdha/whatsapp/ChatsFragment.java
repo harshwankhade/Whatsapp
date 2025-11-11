@@ -79,6 +79,7 @@ public class ChatsFragment extends Fragment
                     {
                         final String usersIDs = getRef(position).getKey();
                         final String[] retImage = {"default_image"};
+                        final String[] retName = {"User"};
 
                         UsersRef.child(usersIDs).addValueEventListener(new ValueEventListener() {
                             @Override
@@ -92,10 +93,10 @@ public class ChatsFragment extends Fragment
                                         Picasso.get().load(retImage[0]).into(holder.profileImage);
                                     }
 
-                                    final String retName = dataSnapshot.child("name").getValue().toString();
+                                    retName[0] = dataSnapshot.child("name").getValue().toString();
                                     final String retStatus = dataSnapshot.child("status").getValue().toString();
 
-                                    holder.userName.setText(retName);
+                                    holder.userName.setText(retName[0]);
 
 
                                     if (dataSnapshot.child("userState").hasChild("state"))
@@ -117,24 +118,25 @@ public class ChatsFragment extends Fragment
                                     {
                                         holder.userStatus.setText("offline");
                                     }
-
-                                    holder.itemView.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view)
-                                        {
-                                            Intent chatIntent = new Intent(getContext(), ChatActivity.class);
-                                            chatIntent.putExtra("visit_user_id", usersIDs);
-                                            chatIntent.putExtra("visit_user_name", retName);
-                                            chatIntent.putExtra("visit_image", retImage[0]);
-                                            startActivity(chatIntent);
-                                        }
-                                    });
                                 }
                             }
 
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
 
+                            }
+                        });
+
+                        // Set click listener outside of ValueEventListener to ensure it's always set
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view)
+                            {
+                                Intent chatIntent = new Intent(getContext(), ChatActivity.class);
+                                chatIntent.putExtra("visit_user_id", usersIDs);
+                                chatIntent.putExtra("visit_user_name", retName[0]);
+                                chatIntent.putExtra("visit_image", retImage[0]);
+                                startActivity(chatIntent);
                             }
                         });
                     }

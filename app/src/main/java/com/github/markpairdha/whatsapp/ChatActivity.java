@@ -113,6 +113,12 @@ public class ChatActivity extends AppCompatActivity
 
         IntializeControllers();
 
+        // Validate that critical views were initialized
+        if (SendMessageButton == null || SendFilesButton == null || MessageInputText == null) {
+            Toast.makeText(this, "Error: Chat interface components not found", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
         userName.setText(messageReceiverName);
         Picasso.get().load(messageReceiverImage).placeholder(R.drawable.profile_image).into(userImage);
@@ -193,9 +199,19 @@ public class ChatActivity extends AppCompatActivity
         userImage = (CircleImageView) actionBarView.findViewById(R.id.custom_profile_image);
         userLastSeen = (TextView) actionBarView.findViewById(R.id.custom_user_last_seen);
 
-        SendMessageButton = (ImageButton) findViewById(R.id.send_message_button);
+        SendMessageButton = (ImageButton) findViewById(R.id.send_message_btn);
         SendFilesButton = (ImageButton) findViewById(R.id.send_files_btn);
         MessageInputText = (EditText) findViewById(R.id.input_message);
+
+        if (SendMessageButton == null) {
+            Toast.makeText(this, "Error: Send message button not found in layout", Toast.LENGTH_SHORT).show();
+        }
+        if (SendFilesButton == null) {
+            Toast.makeText(this, "Error: Send files button not found in layout", Toast.LENGTH_SHORT).show();
+        }
+        if (MessageInputText == null) {
+            Toast.makeText(this, "Error: Message input field not found in layout", Toast.LENGTH_SHORT).show();
+        }
 
         messageAdapter = new MessageAdapter(messagesList);
         userMessagesList = (RecyclerView) findViewById(R.id.private_messages_list_of_users);
