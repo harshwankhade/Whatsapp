@@ -4,9 +4,9 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 33
     buildToolsVersion "33.0.0"
-    namespace "com.github.markpairdha.whatsapp"
+    namespace "com.github.OOADGroup9.EchoApp"
     defaultConfig {
-        applicationId "com.github.markpairdha.whatsapp"
+        applicationId "com.github.OOADGroup9.EchoApp"
         minSdkVersion 21
         targetSdkVersion 33
         versionCode 1

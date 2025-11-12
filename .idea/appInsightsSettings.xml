@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="com.github.markpairdha.whatsapp" />
-                  <option name="mobileSdkAppId" value="1:380723890974:android:245f77d72ba14db94d970f" />
-                  <option name="projectId" value="whatsapp-clone-c615b" />
-                  <option name="projectNumber" value="380723890974" />
+                  <option name="appId" value="PLACEHOLDER" />
+                  <option name="mobileSdkAppId" value="" />
+                  <option name="projectId" value="" />
+                  <option name="projectNumber" value="" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
