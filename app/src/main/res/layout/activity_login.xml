@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context=".LoginActivity">
 
     <ScrollView
@@ -20,7 +21,7 @@
             <ImageView
                 android:id="@+id/login_image"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="280dp"
                 android:src="@drawable/login_photo"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
@@ -29,32 +30,40 @@
             <EditText
                 android:id="@+id/login_email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/login_image"
-                android:hint="Email.."
+                android:hint="Email Address"
                 android:inputType="textEmailAddress"
                 android:background="@drawable/inputs"
-                android:padding="4dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:drawableStart="@drawable/email"
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="17dp"
-                android:layout_marginRight="17dp" />
+                android:drawablePadding="12dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:textColor="@color/colorText"
+                android:textColorHint="@color/colorTextSecondary" />
 
             <EditText
                 android:id="@+id/login_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/login_email"
-                android:hint="Password.."
+                android:hint="Password"
                 android:inputType="textPassword"
                 android:background="@drawable/inputs"
-                android:padding="4dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:drawableStart="@drawable/password"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="17dp"
-                android:layout_marginRight="17dp" />
+                android:drawablePadding="12dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:textColor="@color/colorText"
+                android:textColorHint="@color/colorTextSecondary" />
 
             <TextView
                 android:id="@+id/forget_password_link"
@@ -62,70 +71,89 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/login_password"
-                android:text="Forget Password"
-                android:layout_marginTop="2dp"
-                android:layout_marginRight="23dp"
-                android:layout_marginLeft="15dp"
+                android:text="Forgot Password?"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="16dp"
                 android:textAlignment="textEnd"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textColor="@color/colorPrimary"/>
+
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@+id/forget_password_link"
-                android:padding="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="19dp"
-                android:layout_marginRight="19dp"
+                android:padding="0dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:text="Login"
                 android:textAllCaps="false"
-                android:textSize="24sp"
-                android:textColor="@android:color/background_light"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
                 android:background="@drawable/buttons"/>
+
             <TextView
                 android:id="@+id/need_new_account_link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/login_button"
-                android:text="Need New Account"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginRight="23dp"
+                android:text="Don't have an account? Sign Up"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginRight="20dp"
                 android:textAlignment="center"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textColor="@color/colorPrimary"/>
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivider"
+                android:layout_below="@+id/need_new_account_link"
+                android:layout_marginTop="18dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp" />
+
             <TextView
                 android:id="@+id/login_using"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="or Login Using Your"
-                android:layout_below="@+id/need_new_account_link"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="23dp"
+                android:text="Or continue with"
+                android:layout_below="@+id/divider1"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="20dp"
                 android:textAlignment="center"
-                android:textSize="17sp"
-                android:textStyle="bold"/>
+                android:textSize="14sp"
+                android:textColor="@color/colorTextSecondary"/>
+
             <Button
                 android:id="@+id/phone_login_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_below="@+id/login_using"
-                android:padding="4dp"
-                android:layout_marginRight="19dp"
-                android:layout_marginLeft="19dp"
-                android:layout_marginTop="4dp"
-                android:text="Phone"
-                android:textSize="14sp"
+                android:padding="0dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="28dp"
+                android:text="Phone Number"
+                android:textSize="16sp"
                 android:textAllCaps="false"
-                android:textColor="@android:color/background_light"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
                 android:background="@drawable/buttons"
-                android:drawableStart="@drawable/phone"/>
+                android:drawableStart="@drawable/phone"
+                android:drawablePadding="12dp" />
+
         </RelativeLayout>
 
     </ScrollView>

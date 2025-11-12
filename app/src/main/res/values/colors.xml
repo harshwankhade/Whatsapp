@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#006257</color>
-    <color name="colorPrimaryDark">#005048</color>
-    <color name="colorAccent">#E6E6E6</color>
+    <!-- Modern Green Gradient Colors -->
+    <color name="colorPrimary">#128C7E</color>
+    <color name="colorPrimaryDark">#0F7062</color>
+    <color name="colorAccent">#F5F5F5</color>
+
+    <!-- Additional Modern Colors -->
+    <color name="colorSecondary">#25D366</color>
+    <color name="colorTertiary">#34B7F1</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorSurfaceLight">#F8F9FA</color>
+    <color name="colorSurfaceDark">#E8EAED</color>
+    <color name="colorText">#212121</color>
+    <color name="colorTextSecondary">#757575</color>
+    <color name="colorDivider">#BDBDBD</color>
+    <color name="colorSuccess">#4CAF50</color>
+    <color name="colorError">#F44336</color>
+    <color name="colorWarning">#FF9800</color>
+    <color name="colorOnline">#31A24C</color>
+    <color name="colorOffline">#9E9E9E</color>
 </resources>

@@ -3,6 +3,8 @@ package com.github.markpairdha.whatsapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -133,6 +135,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.options_menu,menu);
+
+        // Style menu items to ensure text is visible
+        for (int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            SpannableString s = new SpannableString(item.getTitle());
+            s.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorText)), 0, s.length(), 0);
+            item.setTitle(s);
+        }
+
         return true;
     }
 

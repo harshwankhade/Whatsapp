@@ -24,6 +24,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -35,6 +38,7 @@ public class ChatsFragment extends Fragment
     private DatabaseReference ChatsRef, UsersRef;
     private FirebaseAuth mAuth;
     private String currentUserID="";
+    private Map<String, ValueEventListener> userListenersMap = new HashMap<>();
 
     public ChatsFragment()
     {
@@ -81,7 +85,13 @@ public class ChatsFragment extends Fragment
                         final String[] retImage = {"default_image"};
                         final String[] retName = {"User"};
 
-                        UsersRef.child(usersIDs).addValueEventListener(new ValueEventListener() {
+                        // Remove old listener if it exists
+                        if (userListenersMap.containsKey(usersIDs)) {
+                            UsersRef.child(usersIDs).removeEventListener(userListenersMap.get(usersIDs));
+                        }
+
+                        // Create a new ValueEventListener that updates whenever the user data changes
+                        ValueEventListener userListener = new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot)
                             {
@@ -90,28 +100,44 @@ public class ChatsFragment extends Fragment
                                     if (dataSnapshot.hasChild("image"))
                                     {
                                         retImage[0] = dataSnapshot.child("image").getValue().toString();
-                                        Picasso.get().load(retImage[0]).into(holder.profileImage);
+                                        if (retImage[0] != null && !retImage[0].isEmpty()) {
+                                            Picasso.get().load(retImage[0]).into(holder.profileImage);
+                                        }
                                     }
 
-                                    retName[0] = dataSnapshot.child("name").getValue().toString();
-                                    final String retStatus = dataSnapshot.child("status").getValue().toString();
-
-                                    holder.userName.setText(retName[0]);
-
-
-                                    if (dataSnapshot.child("userState").hasChild("state"))
+                                    if (dataSnapshot.hasChild("name"))
                                     {
-                                        String state = dataSnapshot.child("userState").child("state").getValue().toString();
-                                        String date = dataSnapshot.child("userState").child("date").getValue().toString();
-                                        String time = dataSnapshot.child("userState").child("time").getValue().toString();
+                                        retName[0] = dataSnapshot.child("name").getValue().toString();
+                                        holder.userName.setText(retName[0]);
+                                    }
 
-                                        if (state.equals("online"))
+                                    // Update user status - this is the key part that checks if online/offline
+                                    if (dataSnapshot.hasChild("userState"))
+                                    {
+                                        if (dataSnapshot.child("userState").hasChild("state"))
                                         {
-                                            holder.userStatus.setText("online");
-                                        }
-                                        else if (state.equals("offline"))
-                                        {
-                                            holder.userStatus.setText("Last Seen: " + date + " " + time);
+                                            String state = dataSnapshot.child("userState").child("state").getValue().toString();
+                                            
+                                            if (state != null) {
+                                                if (state.equals("online"))
+                                                {
+                                                    holder.userStatus.setText("online");
+                                                }
+                                                else if (state.equals("offline"))
+                                                {
+                                                    String date = "";
+                                                    String time = "";
+                                                    
+                                                    if (dataSnapshot.child("userState").hasChild("date")) {
+                                                        date = dataSnapshot.child("userState").child("date").getValue().toString();
+                                                    }
+                                                    if (dataSnapshot.child("userState").hasChild("time")) {
+                                                        time = dataSnapshot.child("userState").child("time").getValue().toString();
+                                                    }
+                                                    
+                                                    holder.userStatus.setText("Last Seen: " + date + " " + time);
+                                                }
+                                            }
                                         }
                                     }
                                     else
@@ -125,7 +151,11 @@ public class ChatsFragment extends Fragment
                             public void onCancelled(DatabaseError databaseError) {
 
                             }
-                        });
+                        };
+
+                        // Store the listener and add it to continuously monitor user state changes
+                        userListenersMap.put(usersIDs, userListener);
+                        UsersRef.child(usersIDs).addValueEventListener(userListener);
 
                         // Set click listener outside of ValueEventListener to ensure it's always set
                         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -157,6 +187,17 @@ public class ChatsFragment extends Fragment
     }
 
 
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // Remove all listeners to prevent memory leaks
+        for (String userId : userListenersMap.keySet()) {
+            UsersRef.child(userId).removeEventListener(userListenersMap.get(userId));
+        }
+        userListenersMap.clear();
+    }
 
 
     public static class  ChatsViewHolder extends RecyclerView.ViewHolder

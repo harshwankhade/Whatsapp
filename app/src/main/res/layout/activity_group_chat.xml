@@ -5,13 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorSurfaceLight"
     tools:context=".GroupChatActivity">
 
     <include
         android:id="@+id/group_chat_bar_layout"
-        layout="@layout/app_bar_layout"
-        >
-    </include>
+        layout="@layout/app_bar_layout" />
 
     <ScrollView
         android:id="@+id/my_scroll_view"
@@ -29,41 +28,58 @@
                 android:id="@+id/group_chat_text_display"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:padding="12dp"
                 android:textAllCaps="false"
-                android:textSize="20sp"
-                android:textColor="@android:color/background_dark"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="60dp"
-                />
+                android:textSize="16sp"
+                android:textColor="@color/colorText"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="60dp" />
 
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/myLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        app:cardBackgroundColor="@android:color/white">
 
-        <EditText
-            android:id="@+id/input_group_message"
-            android:layout_width="370dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="write your message here..."
-            android:padding="17dp"
-            />
+            android:orientation="horizontal"
+            android:padding="4dp">
 
-        <ImageButton
-            android:id="@+id/send_message_button"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/send_message"
-            />
+            <EditText
+                android:id="@+id/input_group_message"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:hint="Write your message here..."
+                android:padding="12dp"
+                android:background="@color/colorSurfaceLight"
+                android:textColor="@color/colorText"
+                android:textColorHint="@color/colorTextSecondary"
+                android:maxLines="5" />
 
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/send_message_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/send_message"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerInside"
+                android:contentDescription="@string/app_name" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </RelativeLayout>
